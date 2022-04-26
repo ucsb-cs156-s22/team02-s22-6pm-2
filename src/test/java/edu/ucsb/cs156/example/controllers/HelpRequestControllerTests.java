@@ -130,12 +130,12 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                 verify(helpRequestRepository, times(1)).findById(eq(7L));
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("EntityNotFoundException", json.get("type"));
-                assertEquals("Help Request with id 7 not found", json.get("message"));
+                assertEquals("HelpRequest with id 7 not found", json.get("message"));
         }
 
         @WithMockUser(roles = { "USER" })
         @Test
-        public void logged_in_user_can_get_all_ucsbdates() throws Exception {
+        public void logged_in_user_can_get_all_helprequest() throws Exception {
 
                 // arrange
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
@@ -190,14 +190,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("a")
                                 .explanation("help")
                                 .requestTime(ldt1)
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 when(helpRequestRepository.save(eq(helpRequest1))).thenReturn(helpRequest1);
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/HelpRequest/post?requesterEmail=yufei_song@ucsb.edu&tableOrBreakoutRoom=a&explanation=help&teamId=1&requestTime=2022-01-03T00:00:00&solved=false")
+                                post("/api/HelpRequest/post?requesterEmail=yufei_song@ucsb.edu&tableOrBreakoutRoom=a&explanation=help&teamId=1&requestTime=2022-01-03T00:00:00&solved=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -228,7 +228,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/ucsbdates?id=15")
+                                delete("/api/HelpRequest?id=15")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -237,12 +237,12 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                 verify(helpRequestRepository, times(1)).delete(any());
 
                 Map<String, Object> json = responseToJson(response);
-                assertEquals("Help Request with id 15 deleted", json.get("message"));
+                assertEquals("HelpRequest with id 15 deleted", json.get("message"));
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
+        public void admin_tries_to_delete_non_existant_helprequest_and_gets_right_error_message()
                         throws Exception {
                 // arrange
 
@@ -250,19 +250,19 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/ucsbdates?id=15")
+                                delete("/api/HelpRequest?id=15")
                                                 .with(csrf()))
                                 .andExpect(status().isNotFound()).andReturn();
 
                 // assert
                 verify(helpRequestRepository, times(1)).findById(15L);
                 Map<String, Object> json = responseToJson(response);
-                assertEquals("Help Request with id 15 not found", json.get("message"));
+                assertEquals("HelpRequest with id 15 not found", json.get("message"));
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_can_edit_an_existing_ucsbdate() throws Exception {
+        public void admin_can_edit_an_existing_helprequest() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
@@ -272,18 +272,18 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .requesterEmail("yufei_song@ucsb.edu")
                                 .teamId("1")
                                 .tableOrBreakoutRoom("a")
-                                .explanation("help")
+                                .explanation("help1")
                                 .requestTime(ldt1)
                                 .solved(false)
                                 .build();
 
                 HelpRequest helpRequestEdited = HelpRequest.builder()
-                                .requesterEmail("yufei_song@ucsb.edu")
+                                .requesterEmail("songyufei1@gmail.com")
                                 .teamId("2")
                                 .tableOrBreakoutRoom("b")
-                                .explanation("help")
+                                .explanation("help2")
                                 .requestTime(ldt2)
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 String requestBody = mapper.writeValueAsString(helpRequestEdited);
@@ -292,7 +292,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                put("/api/ucsbdates?id=67")
+                                put("/api/HelpRequest?id=67")
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .characterEncoding("utf-8")
                                                 .content(requestBody)
@@ -308,7 +308,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
+        public void admin_cannot_edit_helprequest_that_does_not_exist() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
@@ -328,7 +328,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                put("/api/ucsbdates?id=67")
+                                put("/api/HelpRequest?id=67")
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .characterEncoding("utf-8")
                                                 .content(requestBody)
@@ -338,7 +338,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                 // assert
                 verify(helpRequestRepository, times(1)).findById(67L);
                 Map<String, Object> json = responseToJson(response);
-                assertEquals("UCSBDate with id 67 not found", json.get("message"));
+                assertEquals("HelpRequest with id 67 not found", json.get("message"));
 
         }
 }
