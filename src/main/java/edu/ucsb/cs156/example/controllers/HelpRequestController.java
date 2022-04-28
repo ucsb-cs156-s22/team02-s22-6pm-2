@@ -70,8 +70,6 @@ public class HelpRequestController extends ApiController {
     )
             throws JsonProcessingException {
 
-        // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-        // See: https://www.baeldung.com/spring-date-parameters
 
         log.info("requestTime={}", requestTime);
 
