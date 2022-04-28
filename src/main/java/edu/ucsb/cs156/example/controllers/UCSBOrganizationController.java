@@ -58,7 +58,7 @@ public class UCSBOrganizationController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public UCSBOrganization postUCSBOrganization(
-            @ApiParam("quarterYYYYQ") @RequestParam String quarterYYYYQ,
+            @ApiParam("orgCode") @RequestParam String orgCode,
             @ApiParam("orgTranslationShort") @RequestParam String orgTranslationShort,
             @ApiParam("orgTranslation") @RequestParam String orgTranslation,
             @ApiParam("inactive") @RequestParam boolean inactive
@@ -66,6 +66,7 @@ public class UCSBOrganizationController extends ApiController {
     {
 
         UCSBOrganization organization = new UCSBOrganization();
+        organization.setOrgCode(orgCode);
         organization.setOrgTranslationShort(orgTranslationShort);
         organization.setOrgTranslation(orgTranslation);
         organization.setInactive(inactive);
