@@ -43,7 +43,7 @@ public class MenuItemReviewController extends ApiController {
         return dates;
     }
 
-    @ApiOperation(value = "Get a single date")
+    @ApiOperation(value = "Get a Menu Item Review")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public MenuItemReview getById(
@@ -54,7 +54,7 @@ public class MenuItemReviewController extends ApiController {
         return menuItemReview;
     }
 
-    @ApiOperation(value = "Create a new date")
+    @ApiOperation(value = "Create a new Menu Item Review")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public MenuItemReview postMenuItemReview(
@@ -94,7 +94,7 @@ public class MenuItemReviewController extends ApiController {
         return genericMessage("MenuItemReview with id %s deleted".formatted(id));
     }
 
-    @ApiOperation(value = "Update a single date")
+    @ApiOperation(value = "Update a Menu Item Review")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
     public MenuItemReview updateMenuItemReview(
