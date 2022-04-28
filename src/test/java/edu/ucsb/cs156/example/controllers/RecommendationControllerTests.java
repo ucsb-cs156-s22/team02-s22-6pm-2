@@ -92,7 +92,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
 
                 when(recommendationRepository.findById(eq(1L))).thenReturn(Optional.of(recommendation));
@@ -141,7 +141,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
 
                 Recommendation rec2 = Recommendation.builder()
@@ -150,7 +150,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
 
                 ArrayList<Recommendation> expectedRecommendation = new ArrayList<>();
@@ -181,14 +181,14 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
 
                 when(recommendationRepository.save(eq(rec1))).thenReturn(rec1);
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/Recommendation/post?requesterEmail=requester1&professorEmail=professor1&explanation=explain&dateRequested=2022-01-01T00:00:00&dateNeeded=2022-01-01T00:00:00&done=false")
+                                post("/api/Recommendation/post?requesterEmail=requester1&professorEmail=professor1&explanation=explain&dateRequested=2022-01-01T00:00:00&dateNeeded=2022-01-01T00:00:00&done=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -210,7 +210,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
 
                 when(recommendationRepository.findById(eq(4L))).thenReturn(Optional.of(rec1));
@@ -260,16 +260,16 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
                                 
 
                 Recommendation rec1Edited = Recommendation.builder()
                                 .requesterEmail("requester12")
-                                .professorEmail("professor1")
-                                .explanation("explain")
-                                .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
+                                .professorEmail("professor12")
+                                .explanation("explain2")
+                                .dateRequested(LocalDateTime.parse("2022-01-01T00:00:01"))
+                                .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:01"))
                                 .done(false)
                                 .build();
 
@@ -304,7 +304,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("explain")
                                 .dateRequested(LocalDateTime.parse("2022-01-01T00:00:00"))
                                 .dateNeeded(LocalDateTime.parse("2022-01-01T00:00:00"))
-                                .done(false)
+                                .done(true)
                                 .build();
 
                 String requestBody = mapper.writeValueAsString(editedRecommendation);
