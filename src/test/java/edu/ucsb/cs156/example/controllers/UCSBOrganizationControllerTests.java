@@ -40,7 +40,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
         @MockBean
         UserRepository userRepository;
 
-        // Authorization tests for /api/ucsbdiningcommons/admin/all
+        // Authorization tests for /api/ucsborganization/admin/all
 
         @Test
         public void logged_out_users_cannot_get_all() throws Exception {
@@ -254,7 +254,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
                                 .orgCode("t1")
                                 .orgTranslationShort("TST2")
                                 .orgTranslation("TEST2")
-                                .inactive(true)
+                                .inactive(false)
                                 .build();
 
                 String requestBody = mapper.writeValueAsString(testOrg1Edited);
