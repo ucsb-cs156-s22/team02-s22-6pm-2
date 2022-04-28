@@ -41,18 +41,18 @@ public class RecommendationController extends ApiController {
         return commons;
     }
 
-    @ApiOperation(value = "Get a single commons")
+    @ApiOperation(value = "Get a single recommendation")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public Recommendation getById(
-            @ApiParam("code") @RequestParam String code) {
-        Recommendation commons = recommendationRepository.findById(code)
-                .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, code));
+            @ApiParam("id") @RequestParam Long id) {
+        Recommendation commons = recommendationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, id));
 
         return commons;
     }
 
-    @ApiOperation(value = "Create a new commons")
+    @ApiOperation(value = "Create a new recommendation")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public Recommendation postRecommendation(
@@ -82,23 +82,23 @@ public class RecommendationController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteRecommendation(
-            @ApiParam("code") @RequestParam String code) {
-        Recommendation commons = recommendationRepository.findById(code)
-                .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, code));
+            @ApiParam("id") @RequestParam Long id) {
+        Recommendation commons = recommendationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, id));
 
         recommendationRepository.delete(commons);
-        return genericMessage("Recommendation with id %s deleted".formatted(code));
+        return genericMessage("Recommendation with id %s deleted".formatted(id));
     }
 
     @ApiOperation(value = "Update a single recommendation")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
     public Recommendation updateRecommendation(
-            @ApiParam("code") @RequestParam String code,
+            @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid Recommendation incoming) {
 
-        Recommendation commons = recommendationRepository.findById(code)
-                .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, code));
+        Recommendation commons = recommendationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Recommendation.class, id));
 
         commons.setRequesterEmail(incoming.getRequesterEmail());
         commons.setProfessorEmail(incoming.getProfessorEmail());
