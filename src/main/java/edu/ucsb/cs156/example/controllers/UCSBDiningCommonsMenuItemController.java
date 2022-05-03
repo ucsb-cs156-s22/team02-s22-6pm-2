@@ -50,58 +50,23 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         return commons;
     }
 
-    @ApiOperation(value = "Create a new commons")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/post")
-    public UCSBDiningCommons postCommons(
-        @ApiParam("code") @RequestParam String code,
-        @ApiParam("name") @RequestParam String name,
-        @ApiParam("hasSackMeal") @RequestParam boolean hasSackMeal,
-        @ApiParam("hasTakeOutMeal") @RequestParam boolean hasTakeOutMeal,
-        @ApiParam("hasDiningCam") @RequestParam boolean hasDiningCam,
-        @ApiParam("latitude") @RequestParam double latitude,
-        @ApiParam("longitude") @RequestParam double longitude
-        )
-        {
-
-        UCSBDiningCommons commons = new UCSBDiningCommons();
-        commons.setCode(code);
-        commons.setName(name);
-        commons.setHasSackMeal(hasSackMeal);
-        commons.setHasTakeOutMeal(hasTakeOutMeal);
-        commons.setHasDiningCam(hasDiningCam);
-        commons.setLatitude(latitude);
-        commons.setLongitude(longitude);
-
-        UCSBDiningCommons savedCommons = ucsbDiningCommonsRepository.save(commons);
-
-        return savedCommons;
-    }    
-    
-    @ApiOperation(value = "Create a new commons")
+    @ApiOperation(value = "Create a new menu item")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public UCSBDiningCommonsMenuItem postCommons(
         @ApiParam("diningCommonsCode") @RequestParam String code,
         @ApiParam("name") @RequestParam String name,
-        @ApiParam("hasSackMeal") @RequestParam boolean hasSackMeal,
-        @ApiParam("hasTakeOutMeal") @RequestParam boolean hasTakeOutMeal,
-        @ApiParam("hasDiningCam") @RequestParam boolean hasDiningCam,
-        @ApiParam("latitude") @RequestParam double latitude,
-        @ApiParam("longitude") @RequestParam double longitude
+        @ApiParam("station") @RequestParam String station
+
         )
         {
 
-        UCSBDiningCommons commons = new UCSBDiningCommons();
-        commons.setCode(code);
+        UCSBDiningCommonsMenuItem commons = new UCSBDiningCommonsMenuItem();
+        commons.setDiningCommonsCode(code);
         commons.setName(name);
-        commons.setHasSackMeal(hasSackMeal);
-        commons.setHasTakeOutMeal(hasTakeOutMeal);
-        commons.setHasDiningCam(hasDiningCam);
-        commons.setLatitude(latitude);
-        commons.setLongitude(longitude);
+        commons.setStation(station);
 
-        UCSBDiningCommons savedCommons = ucsbDiningCommonsRepository.save(commons);
+        UCSBDiningCommonsMenuItem savedCommons = ucsbDiningCommonsMenuItemRepository.save(commons);
 
         return savedCommons;
     }
