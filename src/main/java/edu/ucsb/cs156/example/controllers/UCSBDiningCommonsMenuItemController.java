@@ -23,7 +23,7 @@ import javax.validation.Valid;
 
 
 @Api(description = "UCSBDiningCommonsMenuItem")
-@RequestMapping("/api/UCSBDiningCommonsMenuItem")
+@RequestMapping("/api/ucsbdiningcommonsmenuitem")
 @RestController
 @Slf4j
 public class UCSBDiningCommonsMenuItemController extends ApiController {
@@ -53,8 +53,8 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     @ApiOperation(value = "Create a new menu item")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
-    public UCSBDiningCommonsMenuItem postCommons(
-        @ApiParam("diningCommonsCode") @RequestParam String code,
+    public UCSBDiningCommonsMenuItem postMenuItem(
+        @ApiParam("diningCommonsCode") @RequestParam String diningCommonsCode,
         @ApiParam("name") @RequestParam String name,
         @ApiParam("station") @RequestParam String station
 
@@ -62,7 +62,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         {
 
         UCSBDiningCommonsMenuItem commons = new UCSBDiningCommonsMenuItem();
-        commons.setDiningCommonsCode(code);
+        commons.setDiningCommonsCode(diningCommonsCode);
         commons.setName(name);
         commons.setStation(station);
 
