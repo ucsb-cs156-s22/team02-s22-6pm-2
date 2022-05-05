@@ -1,6 +1,5 @@
 package edu.ucsb.cs156.example.repositories;
 
-import edu.ucsb.cs156.example.entities.UCSBDiningCommons;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
